@@ -22,9 +22,7 @@ window.onload = ()=> {
   let chartOptions = {
   responsive : true,
   maintainAspecRatio : true,
-  aspectRatio : (
-    window.innerWidth > 700 ? 6:2.3
-  ),
+  aspectRatio : (window.innerWidth > 700 ? 6 : 2.3),
   usePointStyle: true
     
   }
@@ -74,6 +72,7 @@ window.onload = ()=> {
     document.getElementById('menu').classList.remove('active')
     document.getElementById('hamb').classList.remove('is-active')
     document.getElementById('overlay').classList.remove('active')
+    document.body.classList.remove('noscroll')
   }
 
   const data = [
@@ -87,7 +86,8 @@ window.onload = ()=> {
       winds:5,
       primaryColor:'#44a9ff',
       secondaryColor:'#cbe8ff',
-      chartPoints:[-3, 8, 5]
+      chartPoints:[-3, 8, 5],
+      img:'nublado'
     },
     {
       day:'martes',
@@ -99,7 +99,8 @@ window.onload = ()=> {
       winds:9,
       primaryColor:'#44a9ff',
       secondaryColor:'#cbe8ff',
-      chartPoints:[15, 10, 18]
+      chartPoints:[15, 10, 18],
+      img:'lluvioso'
     },
     {
       day:'miercoles',
@@ -111,7 +112,8 @@ window.onload = ()=> {
       winds:10,
       primaryColor:'#FF9900',
       secondaryColor:'#F8ECDD',
-      chartPoints:[12, 19, 20]
+      chartPoints:[12, 19, 20],
+      img:'nublado'
     },
     {
       day:'jueves',
@@ -123,7 +125,8 @@ window.onload = ()=> {
       winds:8,
       primaryColor:'#FF9900',
       secondaryColor:'#F8ECDD',
-      chartPoints:[16, 20, 24]
+      chartPoints:[16, 20, 24],
+      img:'nublado'
     },
     {
       day:'viernes',
@@ -135,7 +138,8 @@ window.onload = ()=> {
       winds:10,
       primaryColor:'#44a9ff',
       secondaryColor:'#cbe8ff',
-      chartPoints:[13, 10, 8]
+      chartPoints:[13, 10, 8],
+      img:'lluvioso'
     },
     {
       day:'sabado',
@@ -147,7 +151,8 @@ window.onload = ()=> {
       winds:8,
       primaryColor:'#ff5454',
       secondaryColor:'#ffc5c5',
-      chartPoints:[25, 20, 26]
+      chartPoints:[25, 20, 26],
+      img:'nublado'
     },
     {
       day:'domingo',
@@ -159,7 +164,8 @@ window.onload = ()=> {
       winds:4,
       primaryColor:'#ff5454',
       secondaryColor:'#ffc5c5',
-      chartPoints:[30, 38, 35]
+      chartPoints:[30, 38, 35],
+      img:'soleado'
     },
   ]
   const cardsHandler = ()=>{
@@ -170,6 +176,7 @@ window.onload = ()=> {
     const precipitations = document.getElementById('prec')
     const winds = document.getElementById('winds')
     const cards = Array.from(document.querySelectorAll('.weather__card-item'))
+    const titleImg = document.getElementById('title-img')
     
 
       cards.forEach((card)=>{
@@ -185,6 +192,7 @@ window.onload = ()=> {
         root.style.setProperty('--color-primary', cardData.primaryColor)
         root.style.setProperty('--color-secondary', cardData.secondaryColor)
         adddata(cardData.secondaryColor,cardData.primaryColor,cardData.chartPoints)
+        titleImg.src = `./assets/img/weather/${cardData.img}.svg`
       }
     })
   }

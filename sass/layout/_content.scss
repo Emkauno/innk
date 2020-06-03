@@ -43,13 +43,16 @@
 .st1 {
     fill: $color-white;
 }
-.st2 {
-    fill:none;stroke:#FFFFFF;stroke-width:3.444;stroke-miterlimit:10;
-}
 
 .stroke-h {
     transition: fill .5s ease;
     fill: var(--color-primary)
+}
+
+.icon-menu {
+    width: 40px;
+    margin: 0 20px;
+    opacity: .5;
 }
 
 .sidebar {
@@ -272,10 +275,6 @@
 
     &__stat {
         &-item {
-            width: 150px;
-            height: 150px;
-            box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
-
             display: flex;
             flex-direction: column;
             align-content: flex-end;
