@@ -40,6 +40,14 @@
 .st0 {
     fill: $color-dark;
 }
+.st1 {
+    fill: $color-white;
+}
+
+.stroke-h {
+    transition: fill .5s ease;
+    fill: var(--color-primary)
+}
 
 .sidebar {
     width: 100%;
@@ -53,6 +61,8 @@
         align-items: center;
         justify-content: flex-start;
         color: lighten($color-dark,20%);
+        transition: background .5s ease;
+        
         cursor: pointer;
             text-decoration: none;
 
@@ -190,6 +200,7 @@
             line-height: 0.8;
             font-weight: 900;
             position: relative;
+            transition: color 1s ease;
             color: var(--color-primary);
             &::after {
                 content: "ºC";
@@ -346,4 +357,9 @@
         height: 150px;
         transform: translate(40px, 10px);
     }
+}
+
+#myChart {
+    width: 100%;
+    max-height: 200px;
 }
