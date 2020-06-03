@@ -22,7 +22,9 @@ window.onload = ()=> {
   let chartOptions = {
   responsive : true,
   maintainAspecRatio : true,
-  aspectRatio : 6,
+  aspectRatio : (
+    window.innerWidth > 700 ? 6:2.3
+  ),
   usePointStyle: true
     
   }

@@ -43,6 +43,9 @@
 .st1 {
     fill: $color-white;
 }
+.st2 {
+    fill:none;stroke:#FFFFFF;stroke-width:3.444;stroke-miterlimit:10;
+}
 
 .stroke-h {
     transition: fill .5s ease;
