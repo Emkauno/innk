@@ -192,7 +192,7 @@ window.onload = ()=> {
         root.style.setProperty('--color-primary', cardData.primaryColor)
         root.style.setProperty('--color-secondary', cardData.secondaryColor)
         adddata(cardData.secondaryColor,cardData.primaryColor,cardData.chartPoints)
-        titleImg.src = `../assets/img//img/weather/${cardData.img}.svg`
+        titleImg.src = `./assets/img/weather/${cardData.img}.svg`
       }
     })
   }
