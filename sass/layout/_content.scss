@@ -249,7 +249,7 @@
         background: $color-white;
         border-radius: 3px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         &:hover {
             transform: scale(1.05);
         }
@@ -359,7 +359,28 @@
     }
 }
 
-#myChart {
-    width: 100%;
-    max-height: 200px;
+
+#overlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color .5s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter .5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+
+    &.active {
+       background-color: rgba(0, 0, 0, 0.5);
+        pointer-events: unset;
+    }
+    @media (max-width: 1200px) {
+        display: block;
+    }
+}
+
+.noscroll {
+    overflow-y: hidden;
 }

@@ -1,33 +1,41 @@
 window.onload = ()=> {
   var ctx = document.getElementById('myChart');
-  
-  var myChart = new Chart(ctx, {
+  let chartData = {
+    labels: ['14:00', '18:00', '20:00'],
+    datasets: [{
+      label: "Temperatura en ºC",
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: "#F8ECDD",
+      borderColor: "#FF9900",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointRadius: 5,
+      pointHitRadius: 10,
+      data: [16, 20, 24],
+    }]
+  }
+  let chartOptions = {
+  responsive : true,
+  maintainAspecRatio : true,
+  aspectRatio : 6,
+  usePointStyle: true
     
+  }
+  function adddata(bgparam,borderparam,chartpoints){
+    myChart.data.datasets[0].backgroundColor = bgparam
+    myChart.data.datasets[0].borderColor = borderparam
+    myChart.data.datasets[0].data = chartpoints
+    myChart.update();
+  }
+  var myChart = new Chart(ctx, {
     type: 'line',
-     data: {
-        labels: ['14:00', '18:00', '20:00'],
-        datasets: [{
-          label: "My First dataset",
-          fill: true,
-          lineTension: 0.1,
-          backgroundColor: "rgba(75,192,192,0.4)",
-          borderColor: "rgba(75,192,192,1)",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(75,192,192,1)",
-          pointBackgroundColor: "#fff",
-          pointRadius: 5,
-          pointHitRadius: 10,
-          data: [65, 59, 80],
-        }]
-    },
-    options: {
-        scales: {
-          maintainAspectratio: false,
-            }
-    }
+    data: chartData,
+    options: chartOptions
   })
 
   const sideBarMenu = ()=>{
@@ -36,10 +44,36 @@ window.onload = ()=> {
       button.onclick = () => {
         buttons.forEach((btn)=>btn.classList.remove('active'))
         button.classList.add('active')
+        menuClose() 
       }
     })
   } 
   sideBarMenu()
+
+  const menuToggler = (menu, hamburger, overlay, body)=>{
+    hamburger.onclick = () => {
+        menu.classList.contains('active') ? (
+        menu.classList.remove('active'),
+        hamburger.classList.remove('is-active'),
+        overlay.classList.remove('active'),
+        body.classList.remove('noscroll')
+       ) : (
+        menu.classList.add('active'),
+        hamburger.classList.add('is-active'),
+        overlay.classList.add('active'),
+        body.classList.add('noscroll')
+      )
+    }
+  }
+
+  menuToggler((document.getElementById('menu')), (document.getElementById('hamb')), (document.getElementById('overlay')),(document.body))
+
+  const menuClose = ()=>{
+    document.getElementById('menu').classList.remove('active')
+    document.getElementById('hamb').classList.remove('is-active')
+    document.getElementById('overlay').classList.remove('active')
+  }
+
   const data = [
     {
       day:'lunes',
@@ -50,7 +84,8 @@ window.onload = ()=> {
       precipitations:8,
       winds:5,
       primaryColor:'#44a9ff',
-      secondaryColor:'#cbe8ff'
+      secondaryColor:'#cbe8ff',
+      chartPoints:[-3, 8, 5]
     },
     {
       day:'martes',
@@ -61,7 +96,8 @@ window.onload = ()=> {
       precipitations:25,
       winds:9,
       primaryColor:'#44a9ff',
-      secondaryColor:'#cbe8ff'
+      secondaryColor:'#cbe8ff',
+      chartPoints:[15, 10, 18]
     },
     {
       day:'miercoles',
@@ -72,7 +108,8 @@ window.onload = ()=> {
       precipitations:2,
       winds:10,
       primaryColor:'#FF9900',
-      secondaryColor:'#F8ECDD'
+      secondaryColor:'#F8ECDD',
+      chartPoints:[12, 19, 20]
     },
     {
       day:'jueves',
@@ -83,7 +120,8 @@ window.onload = ()=> {
       precipitations:2,
       winds:8,
       primaryColor:'#FF9900',
-      secondaryColor:'#F8ECDD'
+      secondaryColor:'#F8ECDD',
+      chartPoints:[16, 20, 24]
     },
     {
       day:'viernes',
@@ -94,7 +132,8 @@ window.onload = ()=> {
       precipitations:30,
       winds:10,
       primaryColor:'#44a9ff',
-      secondaryColor:'#cbe8ff'
+      secondaryColor:'#cbe8ff',
+      chartPoints:[13, 10, 8]
     },
     {
       day:'sabado',
@@ -105,7 +144,8 @@ window.onload = ()=> {
       precipitations:0,
       winds:8,
       primaryColor:'#ff5454',
-      secondaryColor:'#ffc5c5'
+      secondaryColor:'#ffc5c5',
+      chartPoints:[25, 20, 26]
     },
     {
       day:'domingo',
@@ -117,6 +157,7 @@ window.onload = ()=> {
       winds:4,
       primaryColor:'#ff5454',
       secondaryColor:'#ffc5c5',
+      chartPoints:[30, 38, 35]
     },
   ]
   const cardsHandler = ()=>{
@@ -133,7 +174,7 @@ window.onload = ()=> {
       card.onclick = ()=>{
         cards.forEach((item)=>item.classList.remove('active'))
         card.classList.add('active')
-        const cardData = data.find((d)=> d.day == card.dataset.day)
+        const cardData = data.find((d)=> d.day === card.dataset.day)
         mainTemp.innerText = cardData.temp
         secondaryTemp.innerText = `${cardData.minTemp}º / ${cardData.maxTemp}º `
         humidity.innerText = `${cardData.humidity}%`
@@ -141,6 +182,7 @@ window.onload = ()=> {
         winds.innerText = `${cardData.winds} Km/h`
         root.style.setProperty('--color-primary', cardData.primaryColor)
         root.style.setProperty('--color-secondary', cardData.secondaryColor)
+        adddata(cardData.secondaryColor,cardData.primaryColor,cardData.chartPoints)
       }
     })
   }
